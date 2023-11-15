@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --primary-color: #FFB606;
+  --secondary-color: #4A90CC;
+  --ternary-color: #060621;
+  --common-color: #000000;
+  --gray-color: #717974;
+  --action-color: #623885;
+  --dashboard-color: #051336;
+  --effect-color: #061940;
+  --field-color: #000C18;
+
+  --dark-primary-color: #0F1729;
+  --dark-secondary-color: #83FFF9;
+  --dark-common-color: #fff;
+  --dark-gray-color: #717974;
+  --dark-dashboard-color: #151521;
+}
+
+.sm-btn-hover-effect{
+  @apply hover:-translate-y-1
+}

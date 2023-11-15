@@ -1,0 +1,1942 @@
+# @format
+
+openapi: 3.0.0
+info:
+    version: 1.0.0
+    title: ""
+    description: ""
+servers:
+    
+    - description: Dev
+      url: http://localhost:4000/api/v1
+tags:
+    - name: Admission
+      description: This is for Admission
+    - name: Home Work
+      description: This API will be for Home Work
+    - name: Class Routine
+      description: This API will be for Class Routine
+    - name: Events
+      description: This API will be for Events
+    - name: Notice
+      description: This API will be for Notice
+    - name: Subject
+      description: This API will be for Subject
+    - name: Employ
+      description: This API will be for Employ
+paths:
+    /admission:
+        post:
+            tags: [Admission]
+            description: This Api will create a Guardian and make a application
+            requestBody:
+                description: user must have to puss this vlaue from end
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                guardianName:
+                                    type: string
+                                    example: MG Rakib
+                                occupation:
+                                    type: string
+                                    example: Teacher
+                                city:
+                                    type: string
+                                    example: Dhaka
+                                state:
+                                    type: string
+                                    example: Mohamadpur
+                                address:
+                                    type: string
+                                    example: "125, road-2, Adabor"
+                                mobile:
+                                    type: string
+                                    example: "01811115794"
+                                email:
+                                    type: string
+                                    format: email
+                                    example: mgrakibbd@gmail.com
+                                guardianImage:
+                                    type: string
+                                    format: url
+                                    example: https://image.hose/v3
+                                studentName:
+                                    type: string
+                                    example: Abrar Rohoman
+                                studentImage:
+                                    type: string
+                                    example: https://image.hose/v3
+                                relation:
+                                    type: string
+                                    example: father
+                                gender:
+                                    type: string
+                                    enum:
+                                        - male
+                                        - female
+                                        - other
+                                    example: male
+                                fatherName:
+                                    type: string
+                                    example: MG Rakib
+                                motherName:
+                                    type: string
+                                    example: Rupa
+                                dateOfBirth:
+                                    type: string
+                                    format: date
+                                    example: "1997-01-17"
+                                classId:
+                                    type: string
+                                    example: "6547c8d7f1351c0f5121cf0d"
+                            required:
+                                [
+                                    guardianName,
+                                    occupation,
+                                    city,
+                                    state,
+                                    address,
+                                    mobile,
+                                    email,
+                                    studentName,
+                                    gender,
+                                    fatherName,
+                                    motherName,
+                                    dateOfBirth,
+                                    classId,
+                                ]
+            responses:
+                "201":
+                    description: this is successfull response after appling for admission
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Admission Submited succeffully
+                                    data:
+                                        type: object
+                                        properties:
+                                            admissionInfo:
+                                                type: object
+                                                properties:
+                                                    guardianName:
+                                                        type: string
+                                                        example: MG Rakib
+                                                    mobile:
+                                                        type: string
+                                                        example: "01811115794"
+                                                    email:
+                                                        type: string
+                                                        format: email
+                                                        example: mgrakibbd@gmail.com
+                                                    studentName:
+                                                        type: string
+                                                        example: Abrar Rohoman
+                                                    gender:
+                                                        type: string
+                                                        enum:
+                                                            - male
+                                                            - female
+                                                            - other
+                                                        example: male
+                                                    fatherName:
+                                                        type: string
+                                                        example: MG Rakib
+                                                    motherName:
+                                                        type: string
+                                                        example: Rupa
+                                                    dateOfBirth:
+                                                        type: string
+                                                        format: date
+                                                        example: "1997-01-17"
+                                                    classId:
+                                                        type: string
+                                                        example: cls_one_1
+                                                required:
+                                                    [
+                                                        guardianName,
+                                                        mobile,
+                                                        email,
+                                                        studentName,
+                                                        gender,
+                                                        fatherName,
+                                                        motherName,
+                                                        dateOfBirth,
+                                                        classId,
+                                                    ]
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                format: url
+                                                example: "/admission"
+                                            applicationstatus:
+                                                type: string
+                                                format: url
+                                                example: "/admission-status/:id"
+                "400":
+                    $ref: "#/components/responses/400"
+                "500":
+                    $ref: "#/components/responses/500"
+    /admission/{id}:
+        get:
+            tags:
+                - "Admission"
+            description: this api request will get single admission data
+            parameters:
+                - $ref: "#/components/parameters/idParam"
+            responses:
+                "200":
+                    description: this is successful response when get admission data.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Fetch admission successfully
+                                    data:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: "6548810cbe13243d83bf033e"
+                                            status:
+                                                type: string
+                                                example: pending
+                                            guardianName:
+                                                type: string
+                                                example: MG Rakib
+                                            occupation:
+                                                type: string
+                                                example: Teacher
+                                            mobile:
+                                                type: string
+                                                example: "+880181115794"
+                                            email:
+                                                type: string
+                                                example: "mgrakibbd@gmail.com"
+                                            address:
+                                                type: string
+                                                example: "293 road no 2, adabor, mohammadpur, dhaka"
+                                            guairdianImage:
+                                                type: string
+                                                example: "https://image.hose/v3"
+                                            studentName:
+                                                type: string
+                                                example: MGR
+                                            gender:
+                                                type: string
+                                                example: male
+                                            studentImage:
+                                                type: string
+                                                example: "https://image.hose/v3"
+                                            dateOfBirth:
+                                                type: string
+                                                example: "2002-01-02"
+                "400":
+                    $ref: "#/components/responses/400"
+                "404":
+                    $ref: "#/components/responses/404"
+                "500":
+                    $ref: "#/components/responses/500"
+        patch:
+            tags: [Admission]
+            description: This api will help update the existing admissioon
+            parameters:
+                - $ref: "#/components/parameters/idParam"
+            requestBody:
+                description: admin will send data to update existing admission.
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                status:
+                                    type: string
+                                    example: approved
+            responses:
+                "200":
+                    description: this is the successful response.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Application is updated successfully
+                                    data:
+                                        type: object
+                                        properties:
+                                            message:
+                                                type: string
+                                                example: Fetch admission successfully
+                                            data:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: "6548810cbe13243d83bf033e"
+                                                    status:
+                                                        type: string
+                                                        example: pending
+                                                    guardianName:
+                                                        type: string
+                                                        example: MG Rakib
+                                                    occupation:
+                                                        type: string
+                                                        example: Teacher
+                                                    mobile:
+                                                        type: string
+                                                        example: "+880181115794"
+                                                    email:
+                                                        type: string
+                                                        example: "mgrakibbd@gmail.com"
+                                                    address:
+                                                        type: string
+                                                        example: "293 road no 2, adabor, mohammadpur, dhaka"
+                                                    guairdianImage:
+                                                        type: string
+                                                        example: "https://image.hose/v3"
+                                                    studentName:
+                                                        type: string
+                                                        example: MGR
+                                                    gender:
+                                                        type: string
+                                                        example: male
+                                                    studentImage:
+                                                        type: string
+                                                        example: "https://image.hose/v3"
+                                                    dateOfBirth:
+                                                        type: string
+                                                        example: "2002-01-02"
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                example: "/admission/6548810cbe13243d83bf033e"
+                "400":
+                    $ref: "#/components/responses/400"
+                "404":
+                    $ref: "#/components/responses/404"
+                "500":
+                    $ref: "#/components/responses/500"
+
+    /homeworks:
+        get:
+            tags: [Home Work]
+            description: This route will get home work.
+            parameters:
+                - $ref: "#/components/parameters/fieldTypeParam"
+                - $ref: "#/components/parameters/dateParam"
+                - $ref: "#/components/parameters/classIdParam"
+            responses:
+                "200":
+                    description: This is successful response and it will return homework data base on query
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Homework data fetch successful
+                                    data:
+                                        type: array
+                                        items:
+                                            oneOf:
+                                                - type: object
+                                                  properties:
+                                                      date:
+                                                          type: string
+                                                          example: "2023-01-17"
+                                                      homeworks:
+                                                          type: array
+                                                          items:
+                                                              oneOf:
+                                                                  - type: object
+                                                                    properties:
+                                                                        subjectId:
+                                                                            type: string
+                                                                            example: bangla_1
+                                                                        subjectName:
+                                                                            type: string
+                                                                            example: Bangla
+                                                                        teacherName:
+                                                                            type: string
+                                                                            example: Rohim
+                                                                        teacherId:
+                                                                            type: string
+                                                                            example: rohim_id
+                                                                        task:
+                                                                            type: string
+                                                                            example: Drow a tiger and lion picture
+                                                                        submitDate:
+                                                                            type: string
+                                                                            example: "2023-01-17"
+                "404":
+                    $ref: "#/components/responses/404"
+                "400":
+                    $ref: "#/components/responses/400"
+        post:
+            tags: [Home Work]
+            description: This api will create a home work
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                assignDate:
+                                    type: string
+                                    example: "2023-01-03"
+                                teacherName:
+                                    type: string
+                                    example: Rohim
+                                teacherId:
+                                    type: string
+                                    example: 6544ea284087587e3c164823
+                                classId:
+                                    type: string
+                                    example: 6544ea284087587e3c164823
+                                subjectName:
+                                    type: string
+                                    example: Bangla
+                                submissionDate:
+                                    type: string
+                                    example: "2023-01-03"
+                                task:
+                                    type: string
+                                    example: Drowing picture of tiger and lion
+            responses:
+                "201":
+                    description: This route will return to you successfull message
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Home work Created successfulyy
+                                    homeworkData:
+                                        type: object
+                                        properties:
+                                            date:
+                                                type: string
+                                                example: "2023-01-03"
+                                            classId:
+                                                type: string
+                                                example: one_2023
+                                            subjectName:
+                                                type: string
+                                                example: Bangla
+                                            submitDate:
+                                                type: string
+                                                example: "2023-01-03"
+                                            task:
+                                                type: string
+                                                example: Drowing picture of tiger and lion
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                example: /homeworks/6544ea284087587e3c164823
+                "400":
+                    $ref: "#/components/responses/400"
+                "500":
+                    $ref: "#/components/responses/500"
+    /homeworks/{id}:
+        get:
+            tags: [Home Work]
+            description: This api will return single homework
+            parameters:
+                - $ref: "#/components/parameters/idParam"
+            responses:
+                "200":
+                    description: This is success response and it will return a homework data
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Fetch Data successfully
+                                    data:
+                                        type: object
+                                        properties:
+                                            date:
+                                                type: string
+                                                example: "2023-01-03"
+                                            teacherName:
+                                                type: string
+                                                example: Rohim
+                                            teacherId:
+                                                type: string
+                                                example: rohim_12
+                                            classId:
+                                                type: string
+                                                example: one
+                                            subjectName:
+                                                type: string
+                                                example: Bangla
+                                            task:
+                                                type: string
+                                                example: drowing tiger and lion picture
+                                            submitDate:
+                                                type: string
+                                                example: "2023-01-04"
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                format: url
+                                                example: /homeworks/123
+                                            teacherPorfile:
+                                                type: string
+                                                format: url
+                                                example: /teachers/rohim_1
+                "404":
+                    $ref: "#/components/responses/404"
+                "400":
+                    $ref: "#/components/responses/400"
+                "500":
+                    $ref: "#/components/responses/500"
+        patch:
+            tags: [Home Work]
+            description: This api will use to update existing Home work
+            parameters:
+                - $ref: "#/components/parameters/idParam"
+                - $ref: "#/components/parameters/teacherParam"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                task:
+                                    type: string
+                                    example: This is updated task
+                                submissionDate:
+                                    type: string
+                                    example: "2023-03-03"
+            responses:
+                "200":
+                    description: This is successful response the update api
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Home work update successfuly
+                                    homeworkData:
+                                        type: object
+                                        properties:
+                                            date:
+                                                type: string
+                                                example: "2023-01-03"
+                                            classId:
+                                                type: string
+                                                example: one_2023
+                                            subjectName:
+                                                type: string
+                                                example: Bangla
+                                            submitDate:
+                                                type: string
+                                                example: "2023-01-03"
+                                            task:
+                                                type: string
+                                                example: Drowing picture of tiger and lion
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                example: /homework/123
+                "404":
+                    $ref: "#/components/responses/404"
+                "401":
+                    $ref: "#/components/responses/401"
+
+        delete:
+            tags: [Home Work]
+            description: This api will delete a home work
+            parameters:
+                - $ref: "#/components/parameters/idParam"
+                - $ref: "#/components/parameters/teacherParam"
+            responses:
+                "203":
+                    description: This is Successful API this api will help to delete homework
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Home work deleted successfully
+                                    status:
+                                        type: string
+                                        example: 203
+                "404":
+                    $ref: "#/components/responses/404"
+                "401":
+                    $ref: "#/components/responses/401"
+    /class-routine:
+        get:
+            tags: [Class Routine]
+            description: This api will get class routine
+            parameters:
+                - $ref: "#/components/parameters/dateParam"
+                - $ref: "#/components/parameters/classNameParam"
+            responses:
+                "200":
+                    description: This is successfully Api to get Class rootine
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Successfully Fetch Class Routine
+                                    data:
+                                        type: array
+                                        items:
+                                            oneOf:
+                                                - type: object
+                                                  properties:
+                                                      date:
+                                                          type: string
+                                                          example: "2023-01-03"
+                                                      class:
+                                                          type: string
+                                                          example: one
+                                                      startTime:
+                                                          type: string
+                                                          example: "9.00"
+                                                      endTime:
+                                                          type: string
+                                                          example: "9.45"
+                                                      teacherName:
+                                                          type: string
+                                                          example: Rohim
+                                                      teacherId:
+                                                          type: string
+                                                          example: rohim_1
+                                                      subject:
+                                                          type: string
+                                                          example: Rohim
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                format: url
+                                                example: "/class-routine?class=one&date=2023-01-03"
+                "400":
+                    $ref: "#/components/responses/400"
+                "404":
+                    $ref: "#/components/responses/404"
+                "500":
+                    $ref: "#/components/responses/500"
+        patch:
+            tags: [Class Routine]
+            description: This API will update existing Class Routine and also add period to existing class routine but not add new class routine
+            parameters:
+                - $ref: "#/components/parameters/dateParam"
+                - $ref: "#/components/parameters/classNameParam"
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                firstPeriod:
+                                    type: object
+                                    additionalProperties: true
+
+                        # schema:
+                        # type: object
+                        # properties:
+                        #     date:
+                        #         type: string
+                        #         example: "2023-01-03"
+                        #         nullable: true
+                        #     isHoliday:
+                        #         type: string
+                        #         example: "no"
+                        #         nullable: true
+                        #     startTime:
+                        #         type: string
+                        #         example: "2023-01-03"
+                        #     endTime:
+                        #         type: string
+                        #         example: "2023-01-03"
+                        #     subjectId:
+                        #         type: string
+                        #         example: bangla_1
+                        #     teacherId:
+                        #         type: string
+                        #         example: rohim_1
+            responses:
+                "200":
+                    description: This is Successfully API this api will update existing Routine
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Class Routine Update Successfully
+                                    data:
+                                        type: object
+                                        properties:
+                                            date:
+                                                type: string
+                                                example: "2023-01-03"
+                                            isHoliday:
+                                                type: string
+                                                example: "no"
+                                            startTime:
+                                                type: string
+                                                example: "2023-01-03"
+                                            endTime:
+                                                type: string
+                                                example: "2023-01-03"
+                                            subjectId:
+                                                type: string
+                                                example: bangla_1
+                                            teacherId:
+                                                type: string
+                                                example: rohim_1
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                example: "/class-routine/123"
+
+        post:
+            tags: [Class Routine]
+            description: This api will set a class routine
+            parameters:
+                - $ref: "#/components/parameters/classNameParam"
+                - $ref: "#/components/parameters/periodParam"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                date:
+                                    type: string
+                                    example: "2023-01-03"
+                                classId:
+                                    type: string
+                                    example: 654686da2e3699b44dcc2188
+                                routine:
+                                    type: object
+                                    properties:
+                                        firstPeriod:
+                                            type: object
+                                            properties:
+                                                isHoliday:
+                                                    type: string
+                                                    nullable: true
+                                                    example: "no"
+                                                startTime:
+                                                    type: string
+                                                    nullable: true
+                                                    example: "9.00"
+                                                endTime:
+                                                    type: string
+                                                    nullable: true
+                                                    example: "9.45"
+                                                subjectId:
+                                                    type: string
+                                                    nullable: true
+                                                    example: "654686da2e3699b44dcc2188"
+                                                teacherId:
+                                                    type: string
+                                                    nullable: true
+                                                    example: "654686da2e3699b44dcc2188"
+
+            responses:
+                "201":
+                    description: This is successfully Api set New Class Routine
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Successfully Set
+                                    data:
+                                        type: object
+                                        properties:
+                                            isHoliday:
+                                                type: string
+                                                nullable: true
+                                                example: "no"
+                                            startTime:
+                                                type: string
+                                                nullable: true
+                                                example: "9.00"
+                                            endTime:
+                                                type: string
+                                                nullable: true
+                                                example: "9.45"
+                                            subjectId:
+                                                type: string
+                                                nullable: true
+                                                example: "654686da2e3699b44dcc2188"
+                                            teacherId:
+                                                type: string
+                                                nullable: true
+                                                example: "654686da2e3699b44dcc2188"
+                                    links:
+                                        type: object
+                                        properties:
+                                            self:
+                                                type: string
+                                                example: class-routine
+                "400":
+                    $ref: "#/components/responses/400"
+                "401":
+                    $ref: "#/components/responses/401"
+        delete:
+            tags: [Class Routine]
+            description: This Api Will delete existing class-routine
+            parameters:
+                - $ref: "#/components/parameters/dateParam"
+                - $ref: "#/components/parameters/classNameParam"
+            responses:
+                "203":
+                    description: This is Successful API this api will help to delete homework
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: object
+                                        example: Home work deleted successfully
+                "404":
+                    $ref: "#/components/responses/404"
+                "401":
+                    $ref: "#/components/responses/401"
+    /events:
+      post:
+        tags: [Events]
+        description: This is route to create new event and it can access only for office assistant and admin
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    example: This is title of event
+                  body:
+                    type: string
+                    example: This is body of event
+                  status:
+                    type: string
+                    example: public
+                  eventDate:
+                    type: string
+                    example: '2023-11-11'
+                  createdDate:
+                    type: string
+                    example: '2023-11-11'
+        responses:
+          '201'          :
+            description: this is the successful response after create event
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example:  'successfully created event'
+                    data:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          example: This is title of event
+                        body:
+                          type: string
+                          example: This is body of event
+                        status:
+                          type: string
+                          example: public
+                        eventDate:
+                          type: string
+                          example: 2023-11-11
+                        createdDate:
+                          type: string
+                          example: 2023-11-11
+          "400":
+            $ref: '#/components/responses/400'
+          "500":
+            $ref: '#/components/responses/500'
+      get:
+        tags: [Events]
+        description: this api will find data based on queries
+        parameters: 
+          - $ref: '#/components/parameters/pageParam'
+          - $ref: '#/components/parameters/limitParam'
+          - $ref: '#/components/parameters/sortByParam'
+          - $ref: '#/components/parameters/sortTypeParam'
+          - $ref: '#/components/parameters/searchParam'
+          - $ref: '#/components/parameters/publishParam'
+        responses:
+          '200':
+            description: this is successful route
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: fetch data successfully 
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: fetch event data successful
+                          data:
+                            type: object
+                            properties:
+                              title:
+                                type: string
+                                example: This is title of event
+                              body:
+                                type: string
+                                example: This is body of event
+                              eventDate:
+                                type: string
+                                example: "2023-06-11"
+                          links:
+                            type: object
+                            properties:
+                              self:
+                                type: string
+                                example: /evebts/page=2&limit=10&sortBy=date&sortType=dec&search=
+                              next:
+                                type: string
+                                example: /evebts/page=3&limit=10&sortBy=date&sortType=dec&search=
+                              prev:
+                                type: string
+                                example: /evebts/page=1&limit=10&sortBy=date&sortType=dec&search=
+                                
+                                
+          '400'                :
+            $ref: '#/components/responses/400'
+    /events/{id}:
+      get:
+        tags: ['Events']
+        description: This api will get single event
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+        responses:
+          '200':
+            description: This is successfull route
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: fetch event data successful
+                    data:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          example: This is title of event
+                        body:
+                          type: string
+                          example: This is body of event
+                        eventDate:
+                          type: string
+                          example: "2023-06-11"
+          '404':                
+            $ref: '#/components/responses/404'
+          '400':                
+            $ref: '#/components/responses/400'
+          '500':                
+            $ref: '#/components/responses/500'
+      patch:
+        tags: [Events]
+        description: This api will help to update existing event
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        responses:
+          '200':
+            description: this is successfully route
+            content:
+              applicaton/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: fetch successfully
+                    data:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: fetch event data successful
+                        data:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                              example: This is title of event
+                            body:
+                              type: string
+                              example: This is body of event
+                            eventDate:
+                              type: string
+                              example: "2023-06-11"
+          "404"            :
+            $ref: '#/components/responses/404'
+          "400"            :
+            $ref: '#/components/responses/400'
+          "500"            :
+            $ref: '#/components/responses/500'
+      delete:
+        tags: [Events]
+        description: this api will delete existing api
+        parameters: 
+          - $ref: "#/components/parameters/idParam"
+        
+        responses:
+          '203':
+            description: this is successfully route
+            content:
+              applicaton/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: data delete successfull
+                   
+          "404"            :
+            $ref: '#/components/responses/404'
+          "400"            :
+            $ref: '#/components/responses/400'
+          "500"            :
+            $ref: '#/components/responses/500'        
+    /notices:
+      post:
+        tags: [Notice]
+        description: This is route to create new event and it can access only for office assistant and admin
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    example: This is title of notice
+                  body:
+                    type: string
+                    example: This is body of notice
+                  status:
+                    type: string
+                    example: public
+                  noticeDate:
+                    type: string
+                    example: '2023-11-11'
+                  createdDate:
+                    type: string
+                    example: '2023-11-11'
+        responses:
+          '201'          :
+            description: this is the successful response after create event
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example:  'successfully created event'
+                    data:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          example: This is title of event
+                        body:
+                          type: string
+                          example: This is body of event
+                        isPublish:
+                          type: string
+                          example: public
+                        eventDate:
+                          type: string
+                          example: 2023-11-11
+                        createdDate:
+                          type: string
+                          example: 2023-11-11
+          "400":
+            $ref: '#/components/responses/400'
+          "500":
+            $ref: '#/components/responses/500'
+      get:
+        tags: [Notice]
+        description: this api will find data based on queries
+        parameters: 
+          - $ref: '#/components/parameters/pageParam'
+          - $ref: '#/components/parameters/limitParam'
+          - $ref: '#/components/parameters/sortByParam'
+          - $ref: '#/components/parameters/sortTypeParam'
+          - $ref: '#/components/parameters/searchParam'
+          - $ref: '#/components/parameters/publishParam'
+        responses:
+          '200':
+            description: this is successful route
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: fetch data successfully 
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: fetch event data successful
+                          data:
+                            type: object
+                            properties:
+                              title:
+                                type: string
+                                example: This is title of event
+                              body:
+                                type: string
+                                example: This is body of event
+                              eventDate:
+                                type: string
+                                example: "2023-06-11"
+          '400'                :
+            $ref: '#/components/responses/400'
+    /notices/{id}:
+      get:
+        tags: [Notice]
+        description: This api will get single event
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+        responses:
+          '200':
+            description: This is successfull route
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: fetch event data successful
+                    data:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          example: This is title of event
+                        body:
+                          type: string
+                          example: This is body of event
+                        eventDate:
+                          type: string
+                          example: "2023-06-11"
+          '404':                
+            $ref: '#/components/responses/404'
+          '400':                
+            $ref: '#/components/responses/400'
+          '500':                
+            $ref: '#/components/responses/500'
+      patch:
+        tags: [Notice]
+        description: This api will help to update existing event
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        responses:
+          '200':
+            description: this is successfully route
+            content:
+              applicaton/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: fetch successfully
+                    data:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: fetch event data successful
+                        data:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                              example: This is title of event
+                            body:
+                              type: string
+                              example: This is body of event
+                            eventDate:
+                              type: string
+                              example: "2023-06-11"
+          "404"            :
+            $ref: '#/components/responses/404'
+          "400"            :
+            $ref: '#/components/responses/400'
+          "500"            :
+            $ref: '#/components/responses/500'
+      delete:
+        tags: [Notice]
+        description: this api will delete existing api
+        parameters: 
+          - $ref: "#/components/parameters/idParam"
+        
+        responses:
+          '203':
+            description: this is successfully route
+            content:
+              applicaton/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: data delete successfull
+                   
+          "404"            :
+            $ref: '#/components/responses/404'
+          "400"            :
+            $ref: '#/components/responses/400'
+          "500"            :
+            $ref: '#/components/responses/500'        
+    /subjects:
+      post:
+        tags: [Subject]
+        description: This api will create new subect
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  year:
+                    type: string
+                    example: 2023
+                  subject:
+                    type: object
+                    additionalProperties: true
+        responses:
+          '201':
+            description: this is successfully route
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    year:
+                      type: string
+                      example: 2023
+                    subject:
+                      type: object
+                      properties:
+                        one:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: 1545
+                              name: 
+                                type: string
+                                example: bangla
+          '400'                 :
+            $ref: '#/components/responses/400'
+          '500'                 :
+            $ref: '#/components/responses/500'
+      patch:
+        tags: [Subject]
+        description: This is api to update subject
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  classId:
+                    type: string
+                    example: one
+                  year:
+                    type: string
+                    example: 2023
+                  oldSubject:
+                    type: string
+                    example: bangla
+                  newSubject: 
+                    type: string
+                    example: Bangla 1st
+        responses:
+          '200':
+            description: this is successful api
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: update successfully 
+                    data:
+                      type: object
+                      properties:
+                        one:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: 154
+                              name: 
+                                type: string
+                                example: bangla
+          '404'                      :
+            $ref: '#/components/responses/404'
+          '400'                      :
+            $ref: '#/components/responses/400'
+      delete:
+        tags: [Subject]
+        description: this api will delete all class data or a subject.There has two different wat to delete data. If you pass classId, subject and year also you can delete just this classes subject what you pass. If you don't pass the subject name then it will delete the all subject of the the class what you pass as a classId
+        parameters: 
+          - $ref: '#/components/parameters/classIdParam'
+          - $ref: '#/components/parameters/subjectParam'
+          - $ref: '#/components/parameters/dateParam'
+        responses:
+          '200':
+            description: this is successful response
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: delet successful 
+          '404':
+            $ref: '#/components/responses/404'
+          '400':
+            $ref: '#/components/responses/400'
+      get:
+        tags: [Subject]
+        description: this api will get subjects list
+        parameters: 
+          - $ref: '#/components/parameters/classIdParam'
+          - $ref: '#/components/parameters/dateParam'
+        responses:
+          '200':
+            description: this is successful api
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: update successfully 
+                    data:
+                      type: object
+                      properties:
+                        one:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: 154
+                              name: 
+                                type: string
+                                example: bangla
+          '404':
+            $ref: '#/components/responses/404'
+          '400':
+            $ref: '#/components/responses/400'
+          '500':
+            $ref: '#/components/responses/500'        
+    /employs:
+      post:
+        tags: [Employ]
+        description: This api will create a new employ for school 
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: mgrakibbd@gmail.com
+                  password:
+                    type: string
+                    example: password
+                  role:
+                    type: string
+                    example: teacher
+                  department:
+                    type: array
+                    items:
+                      type: string
+                      example: Since
+                  subject:
+                    type: array
+                    items:
+                      type: string
+                      example: Chemistry
+                  address:
+                    type: string
+                    example: '123, Adarbor-2, Dhaka-1207'
+                  image:
+                    type: string
+                    example: 'https://app.swaggerhub.com'
+                  
+        responses:
+          '201'            :
+            description: After creating a new employ then return some info
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: create employ successfully
+                    data:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          example: mgrakibbd@gmail.com
+                        password:
+                          type: string
+                          example: password
+                        role:
+                          type: string
+                          example: teacher
+                        department:
+                          type: array
+                          items:
+                            type: string
+                            example: Bangla
+                        address:
+                          type: string
+                          example: '123, Adarbor-2, Dhaka-1207'
+                        image:
+                          type: string
+                          example: 'https://app.swaggerhub.com'
+          '400'              :
+            $ref: '#/components/responses/400'
+          '500'              :
+            $ref: '#/components/responses/500'
+      get:
+        tags: [Employ]
+        description: This will be public route. It will return object to all emply based on query 
+        parameters: 
+          - $ref: '#/components/parameters/pageParam'
+          - $ref: '#/components/parameters/limitParam'
+          - $ref: '#/components/parameters/roleParam'
+          - $ref: '#/components/parameters/departmentParam'
+          - $ref: '#/components/parameters/subjectParam'
+        responses:
+          '200':
+            description: This is successful response. It will return employ list base on those parameters.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Successfully fetch employ data
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          email:
+                            type: string
+                            example: mgrakibbd@gmail.com
+                          password:
+                            type: string
+                            example: password
+                          role:
+                            type: string
+                            example: teacher
+                          department:
+                            type: array
+                            items:
+                              type: string
+                              example: Bangla
+                          address:
+                            type: string
+                            example: '123, Adarbor-2, Dhaka-1207'
+                          image:
+                            type: string
+                            example: 'https://app.swaggerhub.com'
+                    links:
+                      type: object
+                      properties:
+                        self: 
+                          type: string
+                          example: '/employes/:id/?page=2&limit=10'
+                        next: 
+                          type: string
+                          example: '/employes/:id/?page=3&limit=10'
+                        prev: 
+                          type: string
+                          example: '/employes/:id/?page=1&limit=10'
+          '400'                :
+            $ref: '#/components/responses/400'
+          '500':
+            $ref: '#/components/responses/500'
+    /employs/{id}:
+      delete:
+        tags: [Employ]
+        description: If admin want to delete any emply then he/she can do it by this api
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+        responses:
+          '201':
+            description: This is the successful response after successfully deleted employ
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Deleted successfully
+          '400':
+            $ref: '#/components/responses/400'
+          '404':
+            $ref: '#/components/responses/404'
+          '500':
+            $ref: '#/components/responses/500'
+      patch:
+        tags: [Employ]
+        description: Employ or admin can edit employ vaue but won't be able to change email and if want to change password then have to provide previous password in request body 
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        responses:
+          '200':
+            description: This is a successful response after updating employ value. 
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Employ info update successfully.
+                    data:
+                      type: object
+                      properties:
+                          email:
+                            type: string
+                            example: mgrakibbd@gmail.com
+                          password:
+                            type: string
+                            example: password
+                          role:
+                            type: string
+                            example: teacher
+                          department:
+                            type: array
+                            items:
+                              type: string
+                              example: Bangla
+                          address:
+                            type: string
+                            example: '123, Adarbor-2, Dhaka-1207'
+                          image:
+                            type: string
+                            example: 'https://app.swaggerhub.com'
+          '400'              :
+            $ref: '#/components/responses/400'
+          '404'              :
+            $ref: '#/components/responses/404'
+          '500'              :
+            $ref: '#/components/responses/500'
+      get:
+        tags: [Employ]
+        description: This api will get single employ 
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+        responses:
+          '200':
+            description: This is successful response 
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Successful Data fetching
+                    data:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          example: mgrakibbd@gmail.com
+                        password:
+                          type: string
+                          example: password
+                        role:
+                          type: string
+                          example: teacher
+                        department:
+                          type: array
+                          items:
+                            type: string
+                            example: Bangla
+                        address:
+                          type: string
+                          example: '123, Adarbor-2, Dhaka-1207'
+                        image:
+                          type: string
+                          example: 'https://app.swaggerhub.com'
+          '400'            :
+            $ref: '#/components/responses/400'
+          '404'            :
+            $ref: '#/components/responses/404'
+          '500'            :
+            $ref: '#/components/responses/500'
+    /employs/department/{id}        :
+      patch:
+        tags: [Employ]
+        description: If any employ need to add new department then use the api
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+          - $ref: '#/components/parameters/fieldTypeParam'
+          - $ref: '#/components/parameters/valueParam'
+        responses:
+          '200':
+            description: this is successful response.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Successful Data fetching
+                    data:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          example: mgrakibbd@gmail.com
+                        password:
+                          type: string
+                          example: password
+                        role:
+                          type: string
+                          example: teacher
+                        department:
+                          type: array
+                          items:
+                            type: string
+                            example: Bangla
+                        address:
+                          type: string
+                          example: '123, Adarbor-2, Dhaka-1207'
+                        image:
+                          type: string
+                          example: 'https://app.swaggerhub.com'
+          '400'            :
+            $ref: '#/components/responses/400'
+          '404'            :
+            $ref: '#/components/responses/404'
+          '500'            :
+            $ref: '#/components/responses/500'          
+      delete:
+        tags: [Employ]
+        description: This is successful response after delete
+        parameters: 
+          - $ref: '#/components/parameters/idParam'
+          - $ref: '#/components/parameters/fieldTypeParam'
+          - $ref: '#/components/parameters/valueParam'
+        responses:
+          '203':
+            description: this is successful response.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Delete successful
+          '400'            :
+            $ref: '#/components/responses/400'
+          '404'            :
+            $ref: '#/components/responses/404'
+          '500'            :
+            $ref: '#/components/responses/500'          
+          
+      
+                      
+
+components:
+    responses:
+        "400":
+            description: This is a Bad Request
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                example: Bad Request
+                            data:
+                                type: object
+                                properties:
+                                    filed:
+                                        type: string
+                                        example: name
+                                    message:
+                                        type: string
+                                        example: Name is Required
+                                    in:
+                                        type: string
+                                        example: body
+        "500":
+            description: This is server error
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                example: Something went wrong. Please Try Again.
+        "404":
+            description: Data not found
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                example: Data Not Found
+        "401":
+            description: Unauthorized Access
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                example: Unauthorized Access
+    parameters:
+        fieldTypeParam:
+            in: query
+            name: field_key
+            description: This parameter will help to do search dynamic for date
+            schema:
+                type: string
+                example: assignDate
+        
+        valueParam:
+            in: query
+            name: value
+            description: This parameter will help to do search dynamic for date
+            schema:
+                type: string
+                example: assignDate
+        dateParam:
+            in: query
+            name: date
+            description: This paramiter will find result base on date
+            schema:
+                type: string
+                format: datetime
+                example: 2023-01-10
+        classIdParam:
+            in: query
+            name: classId
+            description: This query will help to find data based on class
+            schema:
+                type: string
+                format: str32
+                example: one
+        classNameParam:
+            in: query
+            name: class_name
+            description: This query will help to find base on Class Name like (One, Tow)
+            schema:
+                type: string
+                format: str32
+                example: class_one
+        periodParam:
+            in: query
+            name: period
+            description: This query for period like first period, second period
+            schema:
+                type: string
+                example: firstPeriod
+        subjectParam:
+            in: query
+            name: subject
+            description: This query will help to find data base on subject
+            schema:
+                type: string
+                example: english
+                
+        idParam:
+            in: path
+            name: id
+            description: this param will help to find specific data
+            schema:
+                type: string
+                example: 123
+            required: true
+        teacherParam:
+            in: query
+            name: t_id
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                example: 123
+        pageParam:
+            in: query
+            name: page
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                example: 1
+        limitParam:
+            in: query
+            name: limit
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                example: 10
+        sortByParam:
+            in: query
+            name: sortBy
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                example: date
+        searchParam:
+            in: query
+            name: search
+            description: this param will help to find by search result
+            schema:
+                type: string
+                example: event
+        
+        sortTypeParam:
+            in: query
+            name: sortType
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                enum: [asc, des]
+                example: des
+        publishParam:
+            in: query
+            name: status
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                example: public
+        roleParam:
+            in: query
+            name: role
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                example: admin        
+        departmentParam:
+            in: query
+            name: dep
+            description: this param will help to find specific data for teacher
+            schema:
+                type: string
+                example: Since        
+                
+                
+                
+                
+                
